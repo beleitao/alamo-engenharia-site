@@ -45,6 +45,15 @@ function isH3SwallowedErrorBody(body: string): boolean {
 }
 
 const PRODUCTION_HOSTS = new Set(["alamoengenharia.com.br", "www.alamoengenharia.com.br"]);
+const STAGING_HOST = "alamo-staging.bdmtecnologia.com";
+
+function redirectVercelHost(request: Request): Response | null {
+  const url = new URL(request.url);
+  if (!url.hostname.endsWith(".vercel.app")) return null;
+  url.protocol = "https:";
+  url.hostname = STAGING_HOST;
+  return new Response(null, { status: 308, headers: { location: url.toString() } });
+}
 
 function withStagingRobots(request: Request, response: Response): Response {
   const host = new URL(request.url).hostname;
@@ -60,6 +69,8 @@ function withStagingRobots(request: Request, response: Response): Response {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const masked = redirectVercelHost(request);
+    if (masked) return masked;
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
