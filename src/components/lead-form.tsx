@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { cloneElement, useId, useState, type ReactElement } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { submitForm } from "@/lib/forms.functions";
 import { useForm } from "react-hook-form";
@@ -134,6 +134,7 @@ export function LeadForm({ defaultService }: { defaultService?: string }) {
               className="flex cursor-pointer items-center gap-3 rounded-sm border border-border px-3 py-2 text-sm transition-colors has-[button[data-state=checked]]:border-primary has-[button[data-state=checked]]:bg-secondary"
             >
               <Checkbox
+                aria-label={name}
                 checked={servicos.includes(name)}
                 onCheckedChange={(c) => toggleService(name, c === true)}
               />
@@ -233,13 +234,21 @@ function Field({
 }: {
   label: string;
   error?: string | undefined;
-  children: React.ReactNode;
+  children: ReactElement<{ id?: string; "aria-invalid"?: boolean; "aria-describedby"?: string }>;
 }) {
+  const id = useId();
+  const errorId = `${id}-erro`;
   return (
     <div className="min-w-0">
-      <Label className="text-sm font-medium">{label}</Label>
-      <div className="mt-1.5">{children}</div>
-      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
+      <Label htmlFor={id} className="text-sm font-medium">{label}</Label>
+      <div className="mt-1.5">
+        {cloneElement(children, {
+          id,
+          "aria-invalid": error ? true : undefined,
+          "aria-describedby": error ? errorId : undefined,
+        })}
+      </div>
+      {error && <p id={errorId} className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 # LOCAL TESTS ONLY. Never upload the filled file or place it in public/.
 # After building, copy to .output/server/.dev.vars for Wrangler local preview.
 # Production: use Wrangler secret put or Cloudflare's encrypted Secrets.
-RESEND_API_KEY=
-LEADS_FROM="Álamo Engenharia <no-reply@alamoengenharia.com.br>"
+BREVO_API_KEY=
+LEADS_FROM="Álamo Engenharia <noreply@bdmtecnologia.com>"
 CRM_GATEWAY_URL=
 CRM_GATEWAY_API_KEY=
 CRM_CONNECTION_API_KEY=

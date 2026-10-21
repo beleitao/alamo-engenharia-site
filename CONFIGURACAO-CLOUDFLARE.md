@@ -10,13 +10,11 @@ Este pacote prepara a configuração; não está publicado nem foi testado com c
 - `src/lib/mail-config.ts`: e-mails de cada setor; orçamento continua indo para `comercial@alamoengenharia.com.br`.
 - `.dev.vars.example`: modelo vazio para testes locais; nunca inserir chaves em arquivos `.ts`, `.tsx`, `public/`, variáveis `VITE_*` ou neste documento.
 
-As chaves privadas **não ficam no código**. Na Cloudflare, abra **Workers & Pages → alamo-engenharia → Settings → Variables and Secrets → Add → Secret**, use o nome `RESEND_API_KEY` e cole o valor lá. Não use o tipo Text para a chave. Salve/aplique a alteração. Alternativamente, use o comando seguro abaixo, que solicita o valor sem incluí-lo na linha de comando.
+As chaves privadas **não ficam no código**. Na Cloudflare, abra **Workers & Pages → alamo-engenharia → Settings → Variables and Secrets → Add → Secret**, use o nome `BREVO_API_KEY` e cole o valor lá. Não use o tipo Text para a chave. Salve/aplique a alteração. Alternativamente, use o comando seguro abaixo, que solicita o valor sem incluí-lo na linha de comando.
 
-## Preparar o Resend
-1. Criar/acessar a conta em https://resend.com.
-2. Adicionar `alamoengenharia.com.br` em Domains. Copiar os registros exatos apresentados pelo Resend para o DNS da Cloudflare. Não substituir MX da caixa corporativa: preserve o serviço atual de recebimento e siga apenas os registros solicitados para envio. Registros de verificação precisam de DNS sem proxy quando aplicável.
-3. Aguardar o domínio ficar Verified. Não inventar SPF/DKIM nem duplicar SPF no mesmo nome; conferir os registros atuais antes de alterações.
-4. Criar chave com permissão de envio, limitada ao domínio quando disponível. Guardá-la como `RESEND_API_KEY` nos Secrets da Cloudflare.
+## Preparar o envio
+O staging usa a API transacional do Brevo e o remetente já autenticado `noreply@bdmtecnologia.com`. A secret do Worker é `BREVO_API_KEY`.
+Para passar o remetente a `no-reply@alamoengenharia.com.br` no futuro, autenticar esse domínio no provedor sem substituir o MX da caixa corporativa.
 5. Confirmar que as caixas dos setores existem e recebem mensagens externas.
 
 ## Publicar sem GitHub

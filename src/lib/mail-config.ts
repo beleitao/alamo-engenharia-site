@@ -1,19 +1,19 @@
 /**
  * Configuração central de envio de e-mails do site.
  *
- * Remetente: use SEMPRE um endereço do domínio verificado (no-reply@alamoengenharia.com.br).
- * O endereço no-reply NÃO precisa existir como caixa postal real — ele só precisa
- * pertencer a um domínio autenticado (SPF/DKIM) no provedor de envio.
+ * Remetente: endereço já autenticado no Brevo (SPF/DKIM de bdmtecnologia.com).
+ * no-reply@alamoengenharia.com.br ainda não pode ser usado: o domínio da Álamo
+ * não está verificado no provedor e o MX do Microsoft 365 não deve ser trocado.
  * As respostas dos clientes vão para o reply-to (e-mail de quem preencheu o formulário).
  */
 
-export const MAIL_FROM = "Álamo Engenharia <no-reply@alamoengenharia.com.br>";
+export const MAIL_FROM = "Álamo Engenharia <noreply@bdmtecnologia.com>";
 
 /** Cópia oculta que recebe todos os envios (deixe vazio para desativar). */
 export const MAIL_BCC: string[] = [];
 
 /** Caixa padrão quando o setor não estiver mapeado. */
-export const MAIL_FALLBACK = "comercial@alamoengenharia.com.br";
+export const MAIL_FALLBACK = "newton.neto@alamoengenharia.com.br";
 
 /**
  * Roteamento por setor — o texto da chave é exatamente a opção exibida

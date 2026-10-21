@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useId, useRef } from "react";
 import { z } from "zod";
 
 /**
@@ -17,6 +17,7 @@ export type SecurityPayload = z.infer<typeof securitySchema>;
 export function useFormGuard() {
   const startedAt = useRef(Date.now());
   const hp = useRef<HTMLInputElement | null>(null);
+  const hpId = useId();
 
   return {
     /** valores a enviar junto com o formulário */
@@ -27,9 +28,9 @@ export function useFormGuard() {
     /** campo escondido a renderizar dentro do <form> */
     field: (
       <div aria-hidden="true" className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
-        <label htmlFor="website-url">Não preencha este campo</label>
+        <label htmlFor={hpId}>Não preencha este campo</label>
         <input
-          id="website-url"
+          id={hpId}
           name="website-url"
           type="text"
           tabIndex={-1}

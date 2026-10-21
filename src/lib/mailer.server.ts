@@ -42,34 +42,55 @@ export function renderEmailHtml(payload: FormPayload) {
   </body></html>`;
 }
 
-export async function sendFormEmail(payload: FormPayload) {
-  const apiKey = process.env["RESEND_API_KEY"];
-  // Destino definido pelo setor/tipo escolhido no formulário (ver mail-config.ts).
-  const to = resolveRecipient(payload.tipo, payload.departamento);
+function parseFrom(value: string) {
+  const match = value.match(/^(.*)<([^>]+)>$/);
+  if (!match) return { name: "Álamo Engenharia", email: value.trim() };
+  return { name: match[1].trim().replace(/^"|"$/g, ""), email: match[2].trim() };
+}
 
+export async function deliverEmail(message: {
+  to: string;
+  subject: string;
+  html: string;
+  replyTo?: string;
+  attachments?: { filename: string; content: string }[];
+}) {
+  const apiKey = process.env["BREVO_API_KEY"];
   if (!apiKey) {
-    console.info("[form] RESEND_API_KEY ausente — envio simulado para", to, payload.tipo);
-    return { delivered: false as const, to };
+    console.info("[form] BREVO_API_KEY ausente — envio simulado para", message.to, message.subject);
+    return { delivered: false as const, to: message.to };
   }
 
-  const res = await fetch("https://api.resend.com/emails", {
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    headers: { "api-key": apiKey, accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: process.env["LEADS_FROM"] ?? MAIL_FROM,
-      to: [to],
-      ...(MAIL_BCC.length ? { bcc: MAIL_BCC } : {}),
-      ...(payload.replyTo ? { reply_to: payload.replyTo } : {}),
-      subject: `[Site] ${payload.tipo}`,
-      html: renderEmailHtml(payload),
-      ...(payload.attachments?.length ? { attachments: payload.attachments } : {}),
+      sender: parseFrom(process.env["LEADS_FROM"] ?? MAIL_FROM),
+      to: [{ email: message.to }],
+      ...(MAIL_BCC.length ? { bcc: MAIL_BCC.map((email) => ({ email })) } : {}),
+      ...(message.replyTo ? { replyTo: { email: message.replyTo } } : {}),
+      subject: message.subject,
+      htmlContent: message.html,
+      ...(message.attachments?.length
+        ? { attachment: message.attachments.map((file) => ({ name: file.filename, content: file.content })) }
+        : {}),
     }),
   });
-
 
   if (!res.ok) {
     console.error("[form] falha no envio", res.status, await res.text());
     return { delivered: false as const };
   }
   return { delivered: true as const };
+}
+
+export async function sendFormEmail(payload: FormPayload) {
+  const to = resolveRecipient(payload.tipo, payload.departamento);
+  return deliverEmail({
+    to,
+    subject: `[Site] ${payload.tipo}`,
+    html: renderEmailHtml(payload),
+    ...(payload.replyTo ? { replyTo: payload.replyTo } : {}),
+    ...(payload.attachments?.length ? { attachments: payload.attachments } : {}),
+  });
 }

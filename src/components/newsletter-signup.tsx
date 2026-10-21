@@ -104,6 +104,7 @@ export function NewsletterSignup({ variant = "dark" }: { variant?: "dark" | "lig
 
           <label className="mt-4 flex cursor-pointer items-start gap-3 text-xs">
             <Checkbox
+              aria-label="Aceito receber e-mails informativos da Álamo Engenharia"
               checked={form.watch("consentimento") === true}
               onCheckedChange={(c) =>
                 form.setValue("consentimento", (c === true) as true, { shouldValidate: true })

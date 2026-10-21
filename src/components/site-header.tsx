@@ -24,7 +24,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/95 backdrop-blur">
       <div className="relative mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-4 px-4 lg:min-h-[92px] lg:px-8">
-        <nav className="hidden items-center gap-5 lg:flex">
+        <nav aria-label="Principal" className="hidden items-center gap-5 lg:flex">
           {LEFT_NAV.map((item) => (
             <Link
               key={item.to}
@@ -55,7 +55,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-5 lg:flex">
+        <nav aria-label="Serviços" className="ml-auto hidden items-center gap-5 lg:flex">
           {(
             [
               { id: "servicos" as const, label: t("nav.servicos"), base: "/servicos", items: SERVICE_LINKS },
@@ -113,6 +113,8 @@ export function SiteHeader() {
               type="button"
               className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-primary"
               aria-label="Selecionar idioma"
+              aria-haspopup="true"
+              aria-expanded={menu === "lang"}
             >
               <Globe className="h-4 w-4" />
               {LANGS.find((l) => l.code === lang)?.short}
@@ -142,7 +144,8 @@ export function SiteHeader() {
 
         <button
           type="button"
-          aria-label="Abrir menu"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="ml-auto grid h-10 w-10 shrink-0 place-items-center rounded-sm border border-border lg:hidden"
         >
@@ -152,7 +155,7 @@ export function SiteHeader() {
 
       {open && (
         <div className="max-h-[75vh] overflow-y-auto border-t border-border bg-background lg:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-2">
+          <nav aria-label="Menu" className="mx-auto flex max-w-7xl flex-col px-4 py-2">
             {LEFT_NAV.map((item) => (
               <Link
                 key={item.to}
@@ -217,7 +220,7 @@ export function SiteHeader() {
                   {t("cta.orcamento")}
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="icon" aria-label="Telefone">
+              <Button asChild variant="outline" size="icon" aria-label="Ligar para a Álamo Engenharia">
                 <a href="tel:+552132359900">
                   <Phone className="h-4 w-4" />
                 </a>

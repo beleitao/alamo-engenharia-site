@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:node": "DEPLOY_TARGET=node vite build && node scripts/trust-loopback-proxy.mjs",
     "preview:cloudflare": "wrangler dev --config .output/server/wrangler.json",
     "deploy:cloudflare": "wrangler deploy --config .output/server/wrangler.json",
-    "secret:email": "wrangler secret put RESEND_API_KEY --config .output/server/wrangler.json",
+    "secret:email": "wrangler secret put BREVO_API_KEY --config .output/server/wrangler.json",
     "format": "prettier --write ."
   },
   "dependencies": {

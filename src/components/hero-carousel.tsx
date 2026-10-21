@@ -109,9 +109,15 @@ export function HeroCarousel() {
 
       <div className="relative mx-auto min-h-[620px] max-w-7xl px-4 py-20 lg:px-8 lg:py-24">
         <p className="eyebrow text-accent">{active.eyebrow}</p>
-        <h1 className="mt-5 max-w-3xl text-3xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">
-          {anniversary ? <>Álamo Engenharia<span className="mt-3 block text-accent">56 anos</span></> : active.title}
-        </h1>
+        {idx === i ? (
+          <h1 className="mt-5 max-w-3xl text-3xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">
+            {anniversary ? <>Álamo Engenharia<span className="mt-3 block text-accent">56 anos</span></> : active.title}
+          </h1>
+        ) : (
+          <p className="mt-5 max-w-3xl text-3xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">
+            {anniversary ? <>Álamo Engenharia<span className="mt-3 block text-accent">56 anos</span></> : active.title}
+          </p>
+        )}
         <p className="mt-6 max-w-xl text-base text-deep-foreground/85 sm:text-lg">
           {active.text}
         </p>

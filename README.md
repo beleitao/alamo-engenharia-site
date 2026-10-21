@@ -12,12 +12,10 @@ Este ZIP é um handoff de código-fonte para Cloudflare Workers, sem GitHub, nã
 6. Conectar o domínio ao Worker; redirecionar www para https://alamoengenharia.com.br preservando caminho e parâmetros. Não cachear respostas de formulários.
 
 ## Integrações — bloqueios para o lançamento
-- E-mail dos formulários (Contato, Orçamento, Currículo, Newsletter): o código de envio já está pronto. Para ativar no servidor:
-  1. Crie uma conta em https://resend.com e adicione o domínio `alamoengenharia.com.br` (Domains → Add Domain).
-  2. Cadastre no DNS do domínio os registros SPF/DKIM exibidos pelo Resend e aguarde o status "Verified".
-  3. Gere uma chave em API Keys (permissão "Sending access") e salve-a como `RESEND_API_KEY` nos Secrets da Cloudflare, nunca no fonte.
-  4. Aplique a alteração e envie um teste pela página /contato; confirme o registro no Resend e o recebimento na caixa de destino.
-  - Remetente: `no-reply@alamoengenharia.com.br` (não precisa existir como caixa postal). Resposta do cliente vai no reply-to.
+- E-mail dos formulários (Contato, Orçamento, Currículo, Newsletter): envio pela API transacional do Brevo, a mesma conta já usada no WordPress.
+  - Secret no Worker: `BREVO_API_KEY`. Nunca no fonte.
+  - Remetente: `noreply@bdmtecnologia.com`, domínio já autenticado no Brevo. Resposta do cliente vai no reply-to.
+  - `no-reply@alamoengenharia.com.br` fica para quando o domínio da Álamo estiver verificado, sem substituir o MX.
   - Destinatário por setor: editar apenas `src/lib/mail-config.ts` (ex.: Comercial → comercial@, RH → gestaodepessoas.rj@).
   - Sem a chave, o formulário avisa o visitante que o envio falhou; nada é dado como entregue.
   - Aceitação pelo provedor não comprova chegada à caixa. Atualmente não há armazenamento durável das solicitações nem fila de reenvio; consulte os limites e próximos passos no guia Cloudflare.

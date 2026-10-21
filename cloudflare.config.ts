@@ -11,7 +11,7 @@ export const cloudflareConfig = {
       compatibility_flags: ["nodejs_compat", "nodejs_compat_populate_process_env"],
       workers_dev: false,
       routes: [{ pattern: "alamo-staging.bdmtecnologia.com", custom_domain: true }],
-      vars: { LEADS_FROM: "Álamo Engenharia <no-reply@alamoengenharia.com.br>" },
+      vars: { LEADS_FROM: "Álamo Engenharia <noreply@bdmtecnologia.com>" },
       observability: { enabled: true },
     },
   },
