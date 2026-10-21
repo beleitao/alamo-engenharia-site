@@ -42,6 +42,14 @@ export function isPublishedArticle(article: BlogArticle, date = today()) {
   return article.status === "published" && new Date(article.date).getTime() <= new Date(date).getTime();
 }
 
-export const BLOG_POSTS = ALL_BLOG_POSTS.filter((article) => isPublishedArticle(article));
-export const BLOG_CATEGORIES = Array.from(new Set(BLOG_POSTS.map((post) => post.category))).sort();
-export const findPost = (slug: string) => BLOG_POSTS.find((post) => post.slug === slug);
+// Cloudflare Workers report the Unix epoch during module startup. Filtering
+// here, on each read, uses the request clock so published articles stay visible.
+export function blogPosts() {
+  return ALL_BLOG_POSTS.filter((article) => isPublishedArticle(article));
+}
+
+export function blogCategories() {
+  return Array.from(new Set(blogPosts().map((post) => post.category))).sort();
+}
+
+export const findPost = (slug: string) => blogPosts().find((post) => post.slug === slug);

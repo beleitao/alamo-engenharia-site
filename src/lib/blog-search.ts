@@ -1,4 +1,4 @@
-import { BLOG_POSTS } from "@/lib/blog";
+import { blogPosts } from "@/lib/blog";
 
 export type BlogSearch = {
   category: string;
@@ -74,7 +74,7 @@ export function filterBlogPosts(s: BlogSearch) {
     s.period === "all" ? null : new Date(Date.now() - Number(s.period) * 30 * 864e5).getTime();
   const q = s.q.trim().toLowerCase();
 
-  return BLOG_POSTS.filter((p) => s.category === "Todos" || p.category === s.category)
+  return blogPosts().filter((p) => s.category === "Todos" || p.category === s.category)
     .filter((p) => (cutoff ? new Date(p.date).getTime() >= cutoff : true))
     .filter((p) => {
       if (!s.year && !s.month) return true;

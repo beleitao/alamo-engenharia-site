@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Search, X } from "lucide-react";
-import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blog";
+import { blogCategories, blogPosts } from "@/lib/blog";
 import {
   type BlogSearch,
   BLOG_DEFAULTS,
@@ -25,7 +25,7 @@ export function BlogSidebar({ search, className = "" }: { search: BlogSearch; cl
 
   const counts = useMemo(() => {
     const map = new Map<string, number>();
-    for (const p of BLOG_POSTS) map.set(p.category, (map.get(p.category) ?? 0) + 1);
+    for (const p of blogPosts()) map.set(p.category, (map.get(p.category) ?? 0) + 1);
     return map;
   }, []);
 
@@ -58,9 +58,9 @@ export function BlogSidebar({ search, className = "" }: { search: BlogSearch; cl
 
         <h2 className="eyebrow mt-6 text-muted-foreground">Categorias</h2>
         <ul className="mt-3 space-y-1">
-          {["Todos", ...BLOG_CATEGORIES].map((c) => {
+          {["Todos", ...blogCategories()].map((c) => {
             const isActive = c === search.category;
-            const n = c === "Todos" ? BLOG_POSTS.length : (counts.get(c) ?? 0);
+            const n = c === "Todos" ? blogPosts().length : (counts.get(c) ?? 0);
             return (
               <li key={c}>
                 <Button

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "node .output/server/index.mjs",
+    "preview:cloudflare": "wrangler dev --config .output/server/wrangler.json",
+    "deploy:cloudflare": "wrangler deploy --config .output/server/wrangler.json",
+    "secret:email": "wrangler secret put RESEND_API_KEY --config .output/server/wrangler.json",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -38,6 +40,7 @@
     "@tanstack/router-plugin": "1.168.42"
   },
   "devDependencies": {
+    "wrangler": "^4.0.0",
     "@eslint/js": "^9.32.0",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",

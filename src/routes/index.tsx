@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/lead-form";
 import { SERVICES } from "@/lib/site-data";
-import { BLOG_POSTS } from "@/lib/blog";
+import { blogPosts } from "@/lib/blog";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { CoverageMap } from "@/components/coverage-map";
 
@@ -215,7 +215,7 @@ function Index() {
           <p className="eyebrow text-accent">Conteúdo técnico</p>
           <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Do blog da engenharia</h2>
           <div className="mt-10 grid gap-6 lg:grid-cols-4">
-            {BLOG_POSTS.slice(0, 4).map((post) => (
+            {blogPosts().slice(0, 4).map((post) => (
               <Link
                 key={post.slug}
                 to="/blog/$slug"

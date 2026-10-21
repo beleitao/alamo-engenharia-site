@@ -1,25 +1,26 @@
 # Álamo Engenharia — handoff técnico
 
 ## Estado desta entrega
-Este ZIP é um handoff de código-fonte, não um build compilado nem um pacote para simplesmente copiar para public_html. O site em execução não foi alterado. A hospedagem ainda não foi identificada; a configuração fornecida é uma referência para Node.js 22.12+ com TanStack Start/Nitro, que precisa ser compilada e validada pelo responsável técnico. Não houve build ou validação de produção deste pacote.
+Este ZIP é um handoff de código-fonte para Cloudflare Workers, sem GitHub, não um build compilado nem um pacote para simplesmente copiar para public_html. O site em execução não foi alterado. Leia `CONFIGURACAO-CLOUDFLARE.md`: contém o procedimento de publicação, configuração segura e testes de recebimento. Não houve compilação nem validação de produção na conta Cloudflare.
 
 ## Preparação e publicação
-1. Confirmar Node.js 22.12+, processo persistente, HTTPS e proxy reverso na hospedagem. Hospedagem apenas PHP/arquivos estáticos não executa este aplicativo completo.
+1. Confirmar Node.js 22.12+ no computador de publicação e acesso à conta Cloudflare Workers. Arquivos estáticos não executam os formulários.
 2. Executar `npm install` e guardar o package-lock.json gerado para futuras instalações reproduzíveis. Não foi fornecido lockfile pois as dependências de exportação diferem das originais.
-3. Configurar variáveis do `.env.example` no serviço de hospedagem, nunca no diretório público. Nenhuma credencial real foi incluída.
+3. Configurar valores públicos em `cloudflare.config.ts` e chaves em Cloudflare Secrets; modelos `.env.example` e `.dev.vars.example` estão vazios. Nenhuma credencial real foi incluída.
 4. Executar `npm run build`. A configuração solicita minificação de JS/CSS e desativa source maps; a minificação ainda não foi executada nesta entrega.
-5. Confirmar o diretório gerado `.output`, executar `npm start` e validar rotas diretamente antes da troca do DNS.
-6. Publicar a saída de produção completa, não a pasta src; redirecionar www para https://alamoengenharia.com.br preservando caminho e parâmetros. Configurar HTTPS, compressão Brotli/gzip e cache longo só para assets com hash; não cachear respostas de formulários.
+5. Autenticar com `npx wrangler login`; usar `npm run deploy:cloudflare` e configurar a chave com `npm run secret:email`. Validar rotas e recebimento antes da troca do DNS.
+6. Conectar o domínio ao Worker; redirecionar www para https://alamoengenharia.com.br preservando caminho e parâmetros. Não cachear respostas de formulários.
 
 ## Integrações — bloqueios para o lançamento
 - E-mail dos formulários (Contato, Orçamento, Currículo, Newsletter): o código de envio já está pronto. Para ativar no servidor:
   1. Crie uma conta em https://resend.com e adicione o domínio `alamoengenharia.com.br` (Domains → Add Domain).
   2. Cadastre no DNS do domínio os registros SPF/DKIM exibidos pelo Resend e aguarde o status "Verified".
-  3. Gere uma chave em API Keys (permissão "Sending access") e grave no `.env` do servidor: `RESEND_API_KEY=re_...`.
-  4. Reinicie a aplicação e envie um teste pela página /contato.
+  3. Gere uma chave em API Keys (permissão "Sending access") e salve-a como `RESEND_API_KEY` nos Secrets da Cloudflare, nunca no fonte.
+  4. Aplique a alteração e envie um teste pela página /contato; confirme o registro no Resend e o recebimento na caixa de destino.
   - Remetente: `no-reply@alamoengenharia.com.br` (não precisa existir como caixa postal). Resposta do cliente vai no reply-to.
   - Destinatário por setor: editar apenas `src/lib/mail-config.ts` (ex.: Comercial → comercial@, RH → gestaodepessoas.rj@).
   - Sem a chave, o formulário avisa o visitante que o envio falhou; nada é dado como entregue.
+  - Aceitação pelo provedor não comprova chegada à caixa. Atualmente não há armazenamento durável das solicitações nem fila de reenvio; consulte os limites e próximos passos no guia Cloudflare.
 - Zoho e newsletter: o fonte utiliza contrato de gateway com /Leads, /Contacts e /Contacts/search. A equipe precisa fornecer um gateway compatível, ou implementar OAuth direto do Zoho. Só apontar para a API nativa NÃO funciona. Credenciais antigas não foram copiadas. WebForm é fallback de leads, não substitui newsletter.
 - Leitor neural: requer gateway compatível com requisição Gemini AUDIO e retorno SSE PCM 24 kHz. Sem configuração, permanece a voz do dispositivo. A voz neural não está validada nesta exportação.
 - Anexos: PNG/JPEG reconstruídos por decodificação de pixels; limites e validação existentes foram preservados. Não representa antivírus nem garantia absoluta contra arquivos maliciosos.
