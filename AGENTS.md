@@ -8,3 +8,5 @@
 - Update canonical URLs and sitemap together when changing the production domain or public page catalogue.
 - Preserve attachment pixel decoding/re-encoding, server validation and CSRF protection during maintenance.
 - Keep comments in editable sources; minify compiled bundles, not the source handoff.
+- Keep GTM in the shared document shell and emit sanitized alamo_page_view after resolved navigation; this avoids repeated downloads and keeps personal query/fragment values out of the custom event.
+- Keep optional analytics and recording tags configured in GTM rather than installing parallel SDKs; this avoids duplicate collection and unnecessary page weight.

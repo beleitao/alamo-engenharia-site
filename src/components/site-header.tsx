@@ -1,15 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Phone, ChevronDown, Globe } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LANGS, OBRA_LINKS, SERVICE_LINKS } from "@/lib/nav-data";
+import { OBRA_LINKS, SERVICE_LINKS } from "@/lib/nav-data";
 import { useI18n } from "@/lib/i18n";
 import logo from "@/assets/logo-cor.png";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [menu, setMenu] = useState<null | "servicos" | "obras" | "lang">(null);
-  const { t, tl, lang, setLang } = useI18n();
+  const [menu, setMenu] = useState<null | "servicos" | "obras">(null);
+  const { t, tl } = useI18n();
 
   const LEFT_NAV = [
     { to: "/", label: t("nav.inicio") },
@@ -35,7 +35,7 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <a href="https://alamoengenharia.pandape.infojobs.com.br/" className={navLink}>{t("nav.trabalhe")}</a>
+          <a href="https://alamoengenharia.pandape.infojobs.com.br/" target="_blank" rel="noopener noreferrer" className={navLink}>{t("nav.trabalhe")}</a>
         </nav>
 
         {/* Logo centralizado: 70% no header, 30% vazando sobre o conteúdo */}
@@ -104,42 +104,6 @@ export function SiteHeader() {
             <Link to="/orcamento">{t("cta.orcamento")}</Link>
           </Button>
 
-          <div
-            className="relative"
-            onMouseEnter={() => setMenu("lang")}
-            onMouseLeave={() => setMenu(null)}
-          >
-            <button
-              type="button"
-              className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-primary"
-              aria-label="Selecionar idioma"
-              aria-haspopup="true"
-              aria-expanded={menu === "lang"}
-            >
-              <Globe className="h-4 w-4" />
-              {LANGS.find((l) => l.code === lang)?.short}
-            </button>
-            {menu === "lang" && (
-              <ul className="absolute right-0 top-full w-44 overflow-hidden rounded-md border border-border bg-card shadow-lift">
-                {LANGS.map((l) => (
-                  <li key={l.code}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setLang(l.code);
-                        setMenu(null);
-                      }}
-                      className={`block w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-secondary ${
-                        l.code === lang ? "text-primary" : "text-muted-foreground"
-                      }`}
-                    >
-                      {l.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
         </nav>
 
         <button
@@ -166,7 +130,7 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <a href="https://alamoengenharia.pandape.infojobs.com.br/" className="border-b border-border/60 py-3 text-sm font-medium" onClick={() => setOpen(false)}>{t("nav.trabalhe")}</a>
+            <a href="https://alamoengenharia.pandape.infojobs.com.br/" target="_blank" rel="noopener noreferrer" className="border-b border-border/60 py-3 text-sm font-medium" onClick={() => setOpen(false)}>{t("nav.trabalhe")}</a>
 
             {[
               { label: t("nav.servicos"), to: "/servicos/$slug" as const, items: SERVICE_LINKS },
@@ -198,21 +162,6 @@ export function SiteHeader() {
             >
               {t("nav.blog")}
             </Link>
-
-            <div className="flex flex-wrap gap-2 py-3">
-              {LANGS.map((l) => (
-                <button
-                  key={l.code}
-                  type="button"
-                  onClick={() => setLang(l.code)}
-                  className={`rounded-sm border px-3 py-1.5 text-xs ${
-                    l.code === lang ? "border-primary text-primary" : "border-border text-muted-foreground"
-                  }`}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
 
             <div className="flex gap-2 pb-3">
               <Button asChild className="flex-1">

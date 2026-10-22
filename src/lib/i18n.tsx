@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import type { Lang, L10n } from "@/lib/nav-data";
 
 const DICT = {
@@ -43,20 +43,9 @@ const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("pt");
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("alamo-lang") as Lang | null;
-    if (saved) setLang(saved);
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("alamo-lang", lang);
-    document.documentElement.lang =
-      lang === "pt" ? "pt-BR" : lang === "zh" ? "zh-CN" : lang;
-  }, [lang]);
-
-  const value = useMemo(() => ({ lang, setLang }), [lang]);
+  // Language switching is temporarily paused until every page is translated.
+  // Ignore previous saved choices to keep both SSR and returning visitors in Portuguese.
+  const value = { lang: "pt" as const, setLang: (_language: Lang) => {} };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

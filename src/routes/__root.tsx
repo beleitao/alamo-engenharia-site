@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
-  Outlet,
   Link,
   createRootRouteWithContext,
   useRouter,
@@ -16,6 +15,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { FloatingActions } from "@/components/floating-actions";
 import { Toaster } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/lib/i18n";
+import { PageTracking, RouteContent } from "@/components/page-tracking";
+import { GTM_BOOTSTRAP, GTM_NOSCRIPT_URL } from "@/lib/tag-manager";
 
 function NotFoundComponent() {
   return (
@@ -165,9 +166,14 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <head>
+        {/* Google Tag Manager: single async bootstrap shared by every route. */}
+        <script id="alamo-gtm" dangerouslySetInnerHTML={{ __html: GTM_BOOTSTRAP }} />
         <HeadContent />
       </head>
       <body>
+        <noscript>
+          <iframe src={GTM_NOSCRIPT_URL} height="0" width="0" className="gtm-noscript" title="Google Tag Manager" />
+        </noscript>
         {children}
         <Scripts />
       </body>
@@ -181,6 +187,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+      <PageTracking />
       <a
         href="#conteudo"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-foreground focus:shadow-lift"
@@ -190,7 +197,7 @@ function RootComponent() {
       <SiteHeader />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <main id="conteudo" tabIndex={-1} className="outline-none">
-        <Outlet />
+        <RouteContent />
       </main>
       <SiteFooter />
       <FloatingActions />

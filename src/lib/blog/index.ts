@@ -2,7 +2,7 @@ import predial from "@/assets/blog-editorial-predial.webp";
 import hvac from "@/assets/blog-editorial-hvac.webp";
 import eletrica from "@/assets/blog-editorial-eletrica.webp";
 import tecnologia from "@/assets/blog-editorial-tecnologia.webp";
-import retrofit from "@/assets/blog-editorial-retrofit.jpg";
+import retrofit from "@/assets/blog-editorial-retrofit.webp";
 import gestao from "@/assets/blog-editorial-gestao.webp";
 import pmoc from "@/assets/blog-pmoc-inspecao.webp";
 import spda from "@/assets/blog-spda-inspecao.webp";

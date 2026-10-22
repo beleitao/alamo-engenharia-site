@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, PageBody } from "@/components/page-shell";
-import esgHero from "@/assets/esg-hero.jpg";
-import imgMeioAmbiente from "@/assets/sgi-meio-ambiente.jpg";
-import imgSeguranca from "@/assets/sgi-seguranca.jpg";
-import imgQualidade from "@/assets/sgi-qualidade.jpg";
+import esgHero from "@/assets/esg-hero.webp";
+import imgMeioAmbiente from "@/assets/sgi-meio-ambiente.webp";
+import imgSeguranca from "@/assets/sgi-seguranca.webp";
+import imgQualidade from "@/assets/sgi-qualidade.webp";
 
 export const Route = createFileRoute("/esg")({
   head: () => ({

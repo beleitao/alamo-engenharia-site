@@ -195,6 +195,27 @@
   .hero-panel { transition: none; }
 }
 
+/* No animation library, layout transitions, or blanket transition: all. */
+.gtm-noscript { display: none; visibility: hidden; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) {
+  a, button, input, textarea, select, summary {
+    transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+    transition-duration: 160ms;
+    transition-timing-function: ease-out;
+  }
+  .page-transition { animation: page-enter 180ms ease-out; }
+  @keyframes page-enter { from { opacity: 0.6; } to { opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @utility text-gradient-accent {
   background-image: var(--gradient-accent);
   background-clip: text;

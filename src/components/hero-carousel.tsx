@@ -4,9 +4,9 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { waUrl } from "@/lib/site-data";
-import predial from "@/assets/predial.jpg";
-import hvac from "@/assets/hvac.jpg";
-import eletrica from "@/assets/eletrica.jpg";
+import predial from "@/assets/predial.webp";
+import hvac from "@/assets/hvac.webp";
+import eletrica from "@/assets/eletrica.webp";
 import aniversario from "@/assets/aniversario-alamo-arquitetura.webp";
 
 const SLIDES = [

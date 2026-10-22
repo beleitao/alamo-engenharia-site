@@ -3,11 +3,11 @@ import { PageHero, PageBody } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { waUrl } from "@/lib/site-data";
-import caseVarejo from "@/assets/case-varejo.jpg";
-import caseLogistica from "@/assets/case-logistica.jpg";
+import caseVarejo from "@/assets/case-varejo.webp";
+import caseLogistica from "@/assets/case-logistica.webp";
 import caseSaude from "@/assets/case-saude.webp";
-import caseCorporativo from "@/assets/sobre-operacao.jpg";
-import caseHvac from "@/assets/hvac.jpg";
+import caseCorporativo from "@/assets/sobre-operacao.webp";
+import caseHvac from "@/assets/hvac.webp";
 
 export const Route = createFileRoute("/cases")({
   head: () => ({

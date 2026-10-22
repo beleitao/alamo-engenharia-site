@@ -12,12 +12,12 @@ import {
 import { LeadForm } from "@/components/lead-form";
 import { ReferenceList } from "@/components/reference-list";
 import { SERVICE_CONTENT, type ServiceContent } from "@/lib/service-content";
-import predial from "@/assets/predial.jpg";
-import hvac from "@/assets/hvac.jpg";
-import eletrica from "@/assets/eletrica.jpg";
-import telecom from "@/assets/telecom.jpg";
-import hidraulica from "@/assets/blog-hidraulica.jpg";
-import outras from "@/assets/blog-pintura-retrofit.jpg";
+import predial from "@/assets/predial.webp";
+import hvac from "@/assets/hvac.webp";
+import eletrica from "@/assets/eletrica.webp";
+import telecom from "@/assets/telecom.webp";
+import hidraulica from "@/assets/blog-hidraulica.webp";
+import outras from "@/assets/blog-pintura-retrofit.webp";
 
 const IMAGES: Record<string, string> = {
   "manutencao-predial": predial,

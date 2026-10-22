@@ -44,8 +44,9 @@ export function SiteFooter() {
               <li><Link to="/premiacoes" className="hover:text-accent">Premiações</Link></li>
               <li><Link to="/faq" className="hover:text-accent">FAQ</Link></li>
               <li><Link to="/contato" className="hover:text-accent">{t("nav.contato")}</Link></li>
-              <li><a href="https://alamoengenharia.pandape.infojobs.com.br/" className="hover:text-accent">{t("nav.trabalhe")}</a></li>
+              <li><a href="https://alamoengenharia.pandape.infojobs.com.br/" target="_blank" rel="noopener noreferrer" className="hover:text-accent">{t("nav.trabalhe")}</a></li>
               <li><Link to="/orcamento" className="hover:text-accent">{t("cta.orcamento")}</Link></li>
+              <li><a href="https://alamoengenharia167202.rm.cloudtotvs.com.br/FrameHTML/web/app/RH/PortalMeuRH/#/login" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Área do colaborador</a></li>
               <li><Link to="/blog" className="hover:text-accent">{t("nav.blog")}</Link></li>
             </ul>
           </div>

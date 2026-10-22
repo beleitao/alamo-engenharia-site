@@ -5,12 +5,12 @@ import { CoverageMap } from "@/components/coverage-map";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/whatsapp-icon";
 import { waUrl } from "@/lib/site-data";
-import equipe from "@/assets/sobre-equipe.jpg";
-import operacao from "@/assets/sobre-operacao.jpg";
-import predial from "@/assets/predial.jpg";
+import equipe from "@/assets/sobre-equipe.webp";
+import operacao from "@/assets/sobre-operacao.webp";
+import predial from "@/assets/predial.webp";
 import premio from "@/assets/premio-infrafm.webp";
-import esgHero from "@/assets/esg-hero.jpg";
-import imgCertificacoes from "@/assets/sgi-certificacoes.jpg";
+import esgHero from "@/assets/esg-hero.webp";
+import imgCertificacoes from "@/assets/sgi-certificacoes.webp";
 import { Handshake, HeartHandshake, RefreshCw, ShieldCheck, Target, Trophy } from "lucide-react";
 
 export const Route = createFileRoute("/sobre")({

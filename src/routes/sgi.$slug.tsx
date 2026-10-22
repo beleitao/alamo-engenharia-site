@@ -1,9 +1,9 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageHero, PageBody } from "@/components/page-shell";
-import imgCertificacoes from "@/assets/sgi-certificacoes.jpg";
-import imgMeioAmbiente from "@/assets/sgi-meio-ambiente.jpg";
-import imgQualidade from "@/assets/sgi-qualidade.jpg";
-import imgSeguranca from "@/assets/sgi-seguranca.jpg";
+import imgCertificacoes from "@/assets/sgi-certificacoes.webp";
+import imgMeioAmbiente from "@/assets/sgi-meio-ambiente.webp";
+import imgQualidade from "@/assets/sgi-qualidade.webp";
+import imgSeguranca from "@/assets/sgi-seguranca.webp";
 
 const SGI: Record<string, { name: string; sub: string; image: string; alt: string; paragraphs: string[] }> = {
   certificacoes: {

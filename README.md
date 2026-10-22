@@ -1,46 +1,103 @@
-# Álamo Engenharia — handoff técnico
+# Álamo Engenharia — Portal Institucional
 
-## Estado desta entrega
-Este ZIP é um handoff de código-fonte para Cloudflare Workers, sem GitHub, não um build compilado nem um pacote para simplesmente copiar para public_html. O site em execução não foi alterado. Leia `CONFIGURACAO-CLOUDFLARE.md`: contém o procedimento de publicação, configuração segura e testes de recebimento. Não houve compilação nem validação de produção na conta Cloudflare.
+> **Engenharia além da execução.**
+> Mais de 56 anos em manutenção predial, HVAC, elétrica, hidráulica, obras e automação para empresas.
 
-## Preparação e publicação
-1. Confirmar Node.js 22.12+ no computador de publicação e acesso à conta Cloudflare Workers. Arquivos estáticos não executam os formulários.
-2. Executar `npm install` e guardar o package-lock.json gerado para futuras instalações reproduzíveis. Não foi fornecido lockfile pois as dependências de exportação diferem das originais.
-3. Configurar valores públicos em `cloudflare.config.ts` e chaves em Cloudflare Secrets; modelos `.env.example` e `.dev.vars.example` estão vazios. Nenhuma credencial real foi incluída.
-4. Executar `npm run build`. A configuração solicita minificação de JS/CSS e desativa source maps; a minificação ainda não foi executada nesta entrega.
-5. Autenticar com `npx wrangler login`; usar `npm run deploy:cloudflare` e configurar a chave com `npm run secret:email`. Validar rotas e recebimento antes da troca do DNS.
-6. Conectar o domínio ao Worker; redirecionar www para https://alamoengenharia.com.br preservando caminho e parâmetros. Não cachear respostas de formulários.
+Repositório oficial do site da [Álamo Engenharia](https://alamoengenharia.com.br). A aplicação usa renderização no servidor (SSR) executada na borda pela Cloudflare, com foco em desempenho, acessibilidade, SEO técnico e segurança dos formulários.
 
-## Integrações — bloqueios para o lançamento
-- E-mail dos formulários (Contato, Orçamento, Currículo, Newsletter): envio pela API transacional do Brevo, a mesma conta já usada no WordPress.
-  - Secret no Worker: `BREVO_API_KEY`. Nunca no fonte.
-  - Remetente: `noreply@bdmtecnologia.com`, domínio já autenticado no Brevo. Resposta do cliente vai no reply-to.
-  - `no-reply@alamoengenharia.com.br` fica para quando o domínio da Álamo estiver verificado, sem substituir o MX.
-  - Destinatário por setor: editar apenas `src/lib/mail-config.ts` (ex.: Comercial → comercial@, RH → gestaodepessoas.rj@).
-  - Sem a chave, o formulário avisa o visitante que o envio falhou; nada é dado como entregue.
-  - Aceitação pelo provedor não comprova chegada à caixa. Atualmente não há armazenamento durável das solicitações nem fila de reenvio; consulte os limites e próximos passos no guia Cloudflare.
-- Zoho e newsletter: o fonte utiliza contrato de gateway com /Leads, /Contacts e /Contacts/search. A equipe precisa fornecer um gateway compatível, ou implementar OAuth direto do Zoho. Só apontar para a API nativa NÃO funciona. Credenciais antigas não foram copiadas. WebForm é fallback de leads, não substitui newsletter.
-- Leitor neural: requer gateway compatível com requisição Gemini AUDIO e retorno SSE PCM 24 kHz. Sem configuração, permanece a voz do dispositivo. A voz neural não está validada nesta exportação.
-- Anexos: PNG/JPEG reconstruídos por decodificação de pixels; limites e validação existentes foram preservados. Não representa antivírus nem garantia absoluta contra arquivos maliciosos.
-- A área de colaboradores permanece bloqueada com 404; carreiras direciona ao Pandapé. Não há conta/autenticação pública ativa nesta entrega; auxiliares de sessão de prévia foram omitidos.
+---
+
+## Stack
+
+| Camada | Tecnologia |
+| :--- | :--- |
+| Framework | TanStack Start v1 · React 19 |
+| Build | Vite 7 · Nitro (preset Cloudflare Workers) |
+| Estilos | Tailwind CSS v4 com tokens semânticos · Sora / Manrope |
+| Runtime | Cloudflare Workers (`nodejs_compat`) |
+| Validação | Zod (cliente e servidor) |
+| Analytics | Google Tag Manager (GA4, Hotjar e demais tags configurados no contêiner) |
+
+## Recursos
+
+- Páginas de serviços, obras, cases, ESG, SGI (ISO 9001, 14001, 45001), premiações e FAQ.
+- Blog técnico com artigos tipados, categorias, busca, compartilhamento e leitura em voz.
+- Formulários de contato, orçamento e newsletter com roteamento de e-mail por setor.
+- Anexos aceitos apenas em PNG/JPEG, reconstruídos no servidor (metadados e conteúdo ativo descartados).
+- SEO técnico: metadados por página, canonical, Open Graph, dados estruturados (JSON-LD), `sitemap.xml` e `robots.txt`.
+- Imagens locais em WebP otimizado; transições leves com respeito a `prefers-reduced-motion`.
+
+## Requisitos
+
+- Node.js **22.12+**
+- npm
+- Conta Cloudflare com Workers habilitado (para publicação)
+
+## Desenvolvimento local
+
+```bash
+npm install
+cp .dev.vars.example .dev.vars   # preencha apenas localmente; nunca faça commit
+npm run dev                      # http://localhost:8080
+```
+
+## Scripts
+
+| Comando | Descrição |
+| :--- | :--- |
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção minificado |
+| `npm run preview:cloudflare` | Executa o build no runtime local do Workers |
+| `npm run deploy:cloudflare` | Publica no Cloudflare Workers |
+| `npm run secret:email` | Cadastra a chave de e-mail como Secret criptografado |
+| `npx vitest run` / `bun test` | Testes automatizados |
+
+## Variáveis de ambiente
+
+Credenciais **nunca** ficam no código. Em produção, use **Cloudflare Secrets** (painel do Worker ou `npx wrangler secret put NOME`). Localmente, use `.dev.vars` (ignorado pelo Git).
+
+| Variável | Tipo | Finalidade |
+| :--- | :--- | :--- |
+| `BREVO_API_KEY` | Secret | Envio dos e-mails dos formulários |
+| `LEADS_FROM` | Pública | Remetente autenticado dos e-mails |
+| `CRM_GATEWAY_URL` / `CRM_GATEWAY_API_KEY` / `CRM_CONNECTION_API_KEY` | Secret | Integração de leads com o CRM |
+| `ZOHO_WEBFORM_URL` | Pública | Fallback de captura de leads |
+| `SPEECH_GATEWAY_URL` / `SPEECH_GATEWAY_API_KEY` / `SPEECH_MODEL` | Secret | Leitura em voz neural (opcional) |
+
+Valores públicos de deploy ficam em `cloudflare.config.ts`. Detalhes em [`CONFIGURACAO-CLOUDFLARE.md`](./CONFIGURACAO-CLOUDFLARE.md) e [`RASTREAMENTO.md`](./RASTREAMENTO.md).
+
+## Estrutura
+
+```text
+├── public/                 # favicon, robots.txt, sitemap.xml
+├── src/
+│   ├── assets/             # imagens otimizadas
+│   ├── components/         # componentes de interface
+│   ├── lib/
+│   │   ├── blog/           # artigos e utilitários do blog
+│   │   ├── mail-config.ts  # remetente e destinatários por setor
+│   │   └── tag-manager.ts  # Google Tag Manager
+│   ├── routes/             # páginas (roteamento por arquivo)
+│   └── styles.css          # design system
+├── tests/                  # testes automatizados
+└── cloudflare.config.ts    # configuração de deploy
+```
 
 ## Manutenção
-- Artigos: editar um arquivo tipado em src/lib/blog/articles e registrar explicitamente em src/lib/blog/index.ts. Datas ISO, horário exibido em São Paulo; nunca mudar slugs já publicados.
-- Serviços/obras: src/lib/service-content.ts e src/lib/obras-content.ts; títulos e descrições por página ficam em src/routes.
-- Identidade: src/styles.css; navegação e contatos nas bibliotecas e componentes compartilhados. Fontes Google Sora/Manrope permanecem externas.
-- Imagens: fotos WebP qualidade 90, sem redução das dimensões; PNG originais de logo e mapa com compressão sem perdas. Arquivos são locais e não dependem de caminhos de armazenamento da prévia.
-- Manter comentários nos fontes; editar fontes e recompilar, não editar arquivos minificados manualmente.
 
-## SEO
-Canonicals e Open Graph da cópia de entrega apontam para https://alamoengenharia.com.br. Sitemap contém as páginas públicas canônicas e os dois artigos; exclui API, página de agradecimento, portal desativado e redirecionamento de carreiras. Metadados por rota e dados estruturados existentes preservados. Conferir o HTML renderizado no servidor após compilar. Ao adicionar/remover artigos ou páginas, atualizar public/sitemap.xml.
-SEO técnico não garante primeira página: depende de concorrência, relevância, autoridade, indexação e desempenho real. Enviar sitemap no Google Search Console após o lançamento, revisar métricas reais e validar alegações comerciais e números com documentação institucional antes de publicar.
+- **Novo artigo:** crie um arquivo em `src/lib/blog/articles/`, registre-o em `src/lib/blog/index.ts` e adicione a URL em `public/sitemap.xml`. Não altere slugs já publicados.
+- **Destinatários de e-mail:** `src/lib/mail-config.ts`.
+- **Serviços e obras:** `src/lib/service-content.ts` e `src/lib/obras-content.ts`.
+- **Identidade visual:** `src/styles.css`.
 
-## Checklist obrigatório da equipe de hospedagem
-- [ ] Compilar, resolver eventuais ajustes do adaptador e verificar saída de produção.
-- [ ] Abrir home, serviços, obras e ambos os artigos por URL direta e recarregar sem 404.
-- [ ] Conferir títulos, descrição, canonical, Open Graph, sitemap e status HTTP reais.
-- [ ] Enviar orçamento real com PNG/JPEG de teste e confirmar recebimento no e-mail e Zoho.
-- [ ] Enviar contato e newsletter e confirmar registros; testar falhas e spam.
-- [ ] Testar leitor neural/voz de dispositivo, filtros Conformidade, compartilhamento e navegação mobile.
-- [ ] Conferir ausência de selo de plataforma na hospedagem externa, imagens, contraste e layouts.
-- [ ] Validar política de privacidade, consentimentos, dados comerciais e configurações de segurança.
+Consulte também [`AGENTS.md`](./AGENTS.md) para as convenções do projeto.
+
+## Segurança
+
+- Não publique `.env`, `.dev.vars` ou qualquer chave; o `.gitignore` já os bloqueia.
+- Rotacione imediatamente qualquer credencial exposta por engano.
+- Vulnerabilidades: reporte de forma privada a comercial@alamoengenharia.com.br.
+
+## Licença
+
+© Álamo Engenharia. Todos os direitos reservados. Código, marcas, imagens e textos são de uso exclusivo da Álamo Engenharia; nenhuma licença de uso é concedida por este repositório.

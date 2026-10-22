@@ -117,7 +117,7 @@ export function FloatingActions() {
                 >
                   {m.text}
                 </p>
-                {m.careers && <Button asChild size="sm" className="mt-2"><a href="https://alamoengenharia.pandape.infojobs.com.br/">Ver vagas e cadastrar currículo</a></Button>}
+                {m.careers && <Button asChild size="sm" className="mt-2"><a href="https://alamoengenharia.pandape.infojobs.com.br/" target="_blank" rel="noopener noreferrer">Ver vagas e cadastrar currículo</a></Button>}
                 {m.cta && (
                   <div className="mt-2 flex flex-wrap gap-2">
                     <Button asChild size="sm">
