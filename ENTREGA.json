@@ -1,0 +1,250 @@
+{
+  "type": "SOURCE HANDOFF — NOT COMPILED",
+  "canonical_domain": "https://alamoengenharia.com.br",
+  "photos": [
+    {
+      "image": "aniversario-alamo-arquitetura.webp",
+      "original_bytes": 1495932,
+      "optimized_bytes": 129456,
+      "width": 1376,
+      "height": 768
+    },
+    {
+      "image": "blog-editorial-eletrica.webp",
+      "original_bytes": 130479,
+      "optimized_bytes": 112722,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-editorial-gestao.webp",
+      "original_bytes": 116005,
+      "optimized_bytes": 92960,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-editorial-hvac.webp",
+      "original_bytes": 151863,
+      "optimized_bytes": 146548,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-editorial-predial.webp",
+      "original_bytes": 131956,
+      "optimized_bytes": 117728,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-editorial-retrofit.jpg",
+      "original_bytes": 181806,
+      "optimized_bytes": 181806,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-editorial-tecnologia.webp",
+      "original_bytes": 126378,
+      "optimized_bytes": 111276,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-hidraulica.jpg",
+      "original_bytes": 136845,
+      "optimized_bytes": 136845,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-pintura-retrofit.jpg",
+      "original_bytes": 129567,
+      "optimized_bytes": 129567,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-pmoc-inspecao.webp",
+      "original_bytes": 135527,
+      "optimized_bytes": 115926,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "blog-spda-inspecao.webp",
+      "original_bytes": 125525,
+      "optimized_bytes": 118618,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "case-logistica.jpg",
+      "original_bytes": 131086,
+      "optimized_bytes": 131086,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "case-saude.webp",
+      "original_bytes": 56843,
+      "optimized_bytes": 48182,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "case-varejo.jpg",
+      "original_bytes": 112773,
+      "optimized_bytes": 112773,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "eletrica.jpg",
+      "original_bytes": 170749,
+      "optimized_bytes": 170749,
+      "width": 1280,
+      "height": 860
+    },
+    {
+      "image": "esg-hero.jpg",
+      "original_bytes": 141277,
+      "optimized_bytes": 141277,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "image": "hvac.jpg",
+      "original_bytes": 195743,
+      "optimized_bytes": 195743,
+      "width": 1280,
+      "height": 860
+    },
+    {
+      "image": "predial.jpg",
+      "original_bytes": 115449,
+      "optimized_bytes": 115449,
+      "width": 1280,
+      "height": 860
+    },
+    {
+      "image": "premio-infrafm.webp",
+      "original_bytes": 42917,
+      "optimized_bytes": 31400,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "sgi-certificacoes.jpg",
+      "original_bytes": 101986,
+      "optimized_bytes": 101986,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "image": "sgi-meio-ambiente.jpg",
+      "original_bytes": 187162,
+      "optimized_bytes": 187162,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "image": "sgi-qualidade.jpg",
+      "original_bytes": 101210,
+      "optimized_bytes": 101210,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "image": "sgi-seguranca.jpg",
+      "original_bytes": 134354,
+      "optimized_bytes": 134354,
+      "width": 1200,
+      "height": 675
+    },
+    {
+      "image": "sobre-equipe.jpg",
+      "original_bytes": 124670,
+      "optimized_bytes": 124670,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "sobre-operacao.jpg",
+      "original_bytes": 113114,
+      "optimized_bytes": 113114,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "image": "telecom.jpg",
+      "original_bytes": 137149,
+      "optimized_bytes": 137149,
+      "width": 1280,
+      "height": 860
+    }
+  ],
+  "removed_unreachable_files": [
+    "src/assets/aniversario-56-anos.jpg",
+    "src/assets/blog-gestao-ativos.jpg",
+    "src/assets/blog-hvac.jpg",
+    "src/assets/blog-inspecao-predial.jpg",
+    "src/assets/blog-predial.jpg",
+    "src/assets/blog-qualidade-ar.jpg",
+    "src/assets/blog-retrofit.jpg",
+    "src/assets/blog-spda.jpg",
+    "src/assets/blog-termografia.jpg",
+    "src/assets/hero-engenharia.jpg",
+    "src/components/cv-form.tsx",
+    "src/hooks/use-mobile.tsx",
+    "src/components/ui/alert-dialog.tsx",
+    "src/components/ui/alert.tsx",
+    "src/components/ui/aspect-ratio.tsx",
+    "src/components/ui/avatar.tsx",
+    "src/components/ui/badge.tsx",
+    "src/components/ui/breadcrumb.tsx",
+    "src/components/ui/calendar.tsx",
+    "src/components/ui/card.tsx",
+    "src/components/ui/carousel.tsx",
+    "src/components/ui/chart.tsx",
+    "src/components/ui/collapsible.tsx",
+    "src/components/ui/command.tsx",
+    "src/components/ui/context-menu.tsx",
+    "src/components/ui/dialog.tsx",
+    "src/components/ui/drawer.tsx",
+    "src/components/ui/dropdown-menu.tsx",
+    "src/components/ui/form.tsx",
+    "src/components/ui/hover-card.tsx",
+    "src/components/ui/input-otp.tsx",
+    "src/components/ui/menubar.tsx",
+    "src/components/ui/navigation-menu.tsx",
+    "src/components/ui/pagination.tsx",
+    "src/components/ui/popover.tsx",
+    "src/components/ui/progress.tsx",
+    "src/components/ui/radio-group.tsx",
+    "src/components/ui/resizable.tsx",
+    "src/components/ui/scroll-area.tsx",
+    "src/components/ui/separator.tsx",
+    "src/components/ui/sheet.tsx",
+    "src/components/ui/sidebar.tsx",
+    "src/components/ui/skeleton.tsx",
+    "src/components/ui/slider.tsx",
+    "src/components/ui/switch.tsx",
+    "src/components/ui/table.tsx",
+    "src/components/ui/tabs.tsx",
+    "src/components/ui/toggle-group.tsx",
+    "src/components/ui/toggle.tsx",
+    "src/components/ui/tooltip.tsx"
+  ],
+  "source_audits": [
+    "Local import resolution passed (generated route tree intentionally regenerated at compile time)",
+    "Syntax-only transpilation passed; not a typecheck or production build",
+    "Every content route includes title, description, Open Graph and Twitter metadata",
+    "Sitemap XML parsed: 32 canonical public URLs",
+    "All supplied images reviewed on contact sheet",
+    "No real environment files or credentials included"
+  ],
+  "production_build": "not run",
+  "live_integrations": "not verified"
+}
